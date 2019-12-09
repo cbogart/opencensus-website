@@ -56,6 +56,7 @@ import time
 import sys
 
 from opencensus.trace.tracer import Tracer
+from opencensus.trace.status import Status
 from opencensus.trace import time_event as time_event_module
 from opencensus.ext.zipkin.trace_exporter import ZipkinExporter
 from opencensus.trace.samplers import AlwaysOnSampler
@@ -68,7 +69,7 @@ ze = ZipkinExporter(service_name="python-quickstart",
 # 1b. Set the tracer to use the exporter
 # 2. Configure 100% sample rate, otherwise, few traces will be sampled.
 # 3. Get the global singleton Tracer object
-tracer = Tracer(exporter=ze, sampler=always_on.AlwaysOnSampler())
+tracer = Tracer(exporter=ze, sampler=AlwaysOnSampler())
 
 def main():
     # 4. Create a scoped span. The span will close at the end of the block.
@@ -104,20 +105,20 @@ ze = ZipkinExporter(service_name="python-quickstart",
                                 port=9411,
                                 endpoint='/api/v2/spans')
 # 1b. Set the tracer to use the exporter
-tracer = Tracer(exporter=ze, sampler=always_on.AlwaysOnSampler())
+tracer = Tracer(exporter=ze, sampler=AlwaysOnSampler())
 ```
 #### Configure Sampler
 Configure 100% sample rate, otherwise, few traces will be sampled.
 ```py
 # 2. Configure 100% sample rate, otherwise, few traces will be sampled.
-tracer = Tracer(exporter=ze, sampler=always_on.AlwaysOnSampler())
+tracer = Tracer(exporter=ze, sampler=AlwaysOnSampler())
 ```
 
 #### Using the Tracer
 To start a trace, you first need to get a reference to the `Tracer` (3). It can be retrieved as a global singleton.
 ```py
 # 3. Get the global singleton Tracer object
-tracer = Tracer(exporter=ze, sampler=always_on.AlwaysOnSampler())
+tracer = Tracer(exporter=ze, sampler=AlwaysOnSampler())
 ```
 
 #### Create a span
